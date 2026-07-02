@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <i class="bi bi-check2-square"></i> Django Notes
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item">
+          <a href="{% url 'home' %}" class="nav-link">
+            <i class="bi bi-house-door"></i> Inicio
+          </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'tasks' %}" class="nav-link">
+            <i class="bi bi-list-task"></i> Pendientes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'tasks_completed' %}" class="nav-link">
+            <i class="bi bi-check-circle"></i> Completadas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'create_task' %}" class="nav-link">
+            <i class="bi bi-plus-circle"></i> Nueva tarea
+          </a>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link text-white-50">
+            <i class="bi bi-person-circle"></i> {{ user.username }}
+          </span>
+        </li>
+        <li class="nav-item">
+          <form action="{% url 'logout' %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-light btn-sm ms-lg-2 mt-2 mt-lg-0">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+          </form>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'signin' %}" class="nav-link">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'signup' %}" class="btn btn-primary btn-sm ms-lg-2 mt-2 mt-lg-0">
+            <i class="bi bi-person-plus"></i> Registro
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

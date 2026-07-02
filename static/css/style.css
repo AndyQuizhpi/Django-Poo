@@ -1,0 +1,81 @@
+/* Estilos personalizados para Django Notes */
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: #f7f7fb;
+}
+
+main {
+  flex: 1;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.hero {
+  padding: 4rem 0;
+}
+
+.task-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.task-card.important {
+  border-left: 4px solid #dc3545;
+}
+
+.task-card .card-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.badge-important {
+  font-size: 0.75rem;
+}
+
+.footer {
+  padding: 1.5rem 0;
+  background-color: #212529;
+  color: #adb5bd;
+}
+
+.footer a {
+  color: #fff;
+}
+
+.fade-in {
+  animation: fadeIn 0.35s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stats-pill {
+  font-size: 0.85rem;
+}
+
+@media (max-width: 576px) {
+  .hero {
+    padding: 2.5rem 0;
+    text-align: center;
+  }
+}

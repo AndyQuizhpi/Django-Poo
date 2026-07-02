@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}{{ task.title }} — Django Notes{% endblock %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h3 mb-0 text-truncate">
+        {% if task.important %}<i class="bi bi-star-fill text-warning"></i>{% endif %}
+        {{ task.title }}
+      </h1>
+      {% if task.datecompleted %}
+        <span class="badge bg-success">
+          <i class="bi bi-check-circle"></i> Completada
+        </span>
+      {% else %}
+        <span class="badge bg-secondary">Pendiente</span>
+      {% endif %}
+    </div>
+
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <div class="card shadow-sm mb-3">
+      <div class="card-body p-4">
+        <form method="POST" novalidate>
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label for="{{ form.title.id_for_label }}" class="form-label">Título</label>
+            {{ form.title }}
+            {% for error in form.title.errors %}
+              <div class="text-danger small mt-1">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="mb-3">
+            <label for="{{ form.description.id_for_label }}" class="form-label">Descripción</label>
+            {{ form.description }}
+            {% for error in form.description.errors %}
+              <div class="text-danger small mt-1">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="form-check mb-4">
+            {{ form.important }}
+            <label for="{{ form.important.id_for_label }}" class="form-check-label">
+              Marcar como importante
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save"></i> Guardar cambios
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap">
+      {% if not task.datecompleted %}
+      <form action="{% url 'complete_task' task.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-check-circle"></i> Completar
+        </button>
+      </form>
+      {% endif %}
+
+      <form
+        action="{% url 'delete_task' task.id %}"
+        method="POST"
+        class="js-confirm-delete"
+        data-task-title="{{ task.title }}"
+      >
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+      </form>
+
+      <a href="{% url 'tasks' %}" class="btn btn-outline-secondary ms-auto">
+        <i class="bi bi-arrow-left"></i> Volver
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

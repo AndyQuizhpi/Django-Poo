@@ -1,0 +1,25 @@
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Bytecode de Python
+__pycache__/
+*.pyc
+
+# Base de datos local
+db.sqlite3
+
+# Variables de entorno
+.env
+
+# Archivos estáticos recolectados
+staticfiles/
+
+# Media subida por usuarios
+media/
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
